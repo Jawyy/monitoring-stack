@@ -10,7 +10,7 @@ echo -e "${GREEN}[1/3] Instalando ferramentas de estresse e carga...${NC}"
 sudo apt-get update -y && sudo apt-get install -y stress apache2-utils
 
 echo -e "\n${GREEN}[2/3] Simulando Sobrecarga de CPU por 45 segundos...${NC}"
-stress --cpu 2 --timeout 45s &
+stress --cpu 2 --timeout 180s &
 
 echo -e "\n${GREEN}[3/3] Iniciando Ataque de Requisicoes Simultaneas (HTTP)...${NC}"
 ab -n 5000 -c 50 http://${TARGET_IP}:8080/q/metrics
@@ -21,4 +21,4 @@ do
    curl -s -o /dev/null -w "%{http_code}" http://${TARGET_IP}:80/rota-invalida-ataque-$i
 done
 
-echo -e "\n${RED}[CAOS FINALIZADO]${NC} Verifique os graficos no Grafana e alertas no Slack!"
+echo -e "\n${RED}[CAOS FINALIZADO]${NC} Verifique os graficos no Grafana e alertas no Slack!" 
