@@ -42,10 +42,23 @@ Verifique se todos os contêineres iniciaram corretamente com `docker ps`. Você
 
 Para validar a eficácia dos alertas e o comportamento dos painéis em tempo real, execute o script de estresse:
 
+**Linux:**
 ```bash
 chmod +x ./scripts/chaos-load.sh
 ./scripts/chaos-load.sh
 ```
+
+**Windows (PowerShell 5+):**
+```powershell
+# 1. Abrir PowerShell como administrador
+# 2. Se for a primeira vez, liberar execução de scripts:
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass # (A) SIM PARA TODOS
+
+# 3. Executar
+.\scripts\chaos-load.ps1
+```
+
+> Nota: No Windows, o script PowerShell usa `Start-Job` para concorrência em vez de `stress` e `ab` (indisponíveis nativamente), gerando carga equivalente via `Invoke-WebRequest` paralelo.
 
 Esse script simulará alta carga de processamento de hardware, requisições massivas na API e varreduras maliciosas no proxy de borda, forçando o disparo de notificações no Slack e flutuações nos gráficos do Grafana.
 
